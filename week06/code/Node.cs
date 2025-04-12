@@ -13,6 +13,12 @@ public class Node
     {
         // TODO Start Problem 1
 
+        // only allow unique values to be added to the tree
+        if(value == Data)
+        {
+            return;
+        }
+        
         if (value < Data)
         {
             // Insert to the left
@@ -34,12 +40,51 @@ public class Node
     public bool Contains(int value)
     {
         // TODO Start Problem 2
-        return false;
+
+        // check if the current node contains the value
+        if (value == Data)
+        {
+            return true;
+        }
+        else if (value < Data)
+        {
+            // search left subtree
+            if (Left != null)
+            {
+                return Left.Contains(value); // recursively search left
+            }
+            return false; // left is null, value not found
+        }
+        else
+        {
+            // search right subtree
+            if (Right != null)
+            {
+                return Right.Contains(value); // recursively search right
+            }
+            return false; // right is null, value not found
+        }
     }
 
     public int GetHeight()
     {
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        int leftHeight = 0;
+        int rightHeight = 0;
+
+        // checks if the left node is not null and calculates its height
+        if (Left != null)
+        {
+            leftHeight = Left.GetHeight();
+        }
+
+        // checks if the right node is not null and calculates its height
+        if (Right != null)
+        {
+            rightHeight = Right.GetHeight();
+        }
+
+        // the height of the current node is 1 plus the maximum of left and right subtree heights
+        return 1 + Math.Max(leftHeight, rightHeight);
     }
 }
